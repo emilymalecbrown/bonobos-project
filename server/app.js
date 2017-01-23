@@ -13,6 +13,9 @@ app.get('/', (req, res, next) => {
   next();
 });
 
-app.listen(app.get('port'), () => {
-  console.log(chalk.green("Node app is running at localhost:" + app.get('port')));
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(err.status || 500).send(err.message);
 });
+
+module.exports = app;

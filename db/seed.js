@@ -2,23 +2,24 @@ const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
 const db = require('./index.js');
-const product = require(path.join(__dirname + '/models/product-model.js'));
-const inventory = require(path.join(__dirname +'/models/inventory-model.js'));
+const product = require('./models/product-model.js');
+const inventory = require('./models/inventory-model.js');
 let productData = fs.readFileSync(path.join(__dirname + '/data/products.csv')).toString();
 let inventoryData = fs.readFileSync(path.join(__dirname + '/data/inventory.csv')).toString();
 
 // ====== Parse Product Data ====== //
 
+// array of column names
 const productColumns = productData.split('\n')[0].split(",");
 const products = productData.split('\n').slice(1);
 
-// format products into 2d array that looks like
+// format products into 2d array that looks like:
 // [[product_id,product_name,product_image,product_description]]
 let formattedProducts = [];
 
 products.forEach((product) => {
   // handle empty rows
-  if (product === '') return;
+  if (product === "") return;
 
   unformattedLineItem = product.split(",");
   firstThreeColumns = unformattedLineItem.slice(0, 3);
@@ -28,7 +29,8 @@ products.forEach((product) => {
   formattedProducts.push(firstThreeColumns.concat(lastColumn));
 });
 
-//initialize seed
+// initialize seed and push in objects that look like:
+// [{product_id: 1, product_name: "name", product_image: "url", product_description: "string"}]
 const productSeed = [];
 
 formattedProducts.forEach((product) => {
@@ -42,13 +44,14 @@ formattedProducts.forEach((product) => {
   productSeed.push(row);
 });
 
-// ===== Parse Inventory Data ===== //
+// ====== Parse Inventory Data ====== //
 
-// split first row into array of column names & map to trim whitespace
+// array of column names with map to trim whitespace
 const inventoryColumns = inventoryData.split('\n')[0].split(",").map(function(s) { return s.trim() });
 const styles = inventoryData.split('\n').slice(1);
 
-//initialize seed
+// initialize seed and push in objects that look like:
+// [{product_id: 1, waist: 28, length: 38, style: "string", count: 40}]
 const inventorySeed = [];
 
 styles.forEach((style) => {
@@ -64,7 +67,7 @@ styles.forEach((style) => {
   inventorySeed.push(row);
 });
 
-// ===== Sync DB ===== //
+// ====== Sync DB ====== //
 
 const seedProducts = () => db.Promise.map(productSeed, product => db.model('product').create(product));
 const seedInventory = () => db.Promise.map(inventorySeed, inventory => db.model('inventory').create(inventory));
