@@ -13,7 +13,7 @@
 
 **Approach**
 
- In the backend I utilized a PostgreSQL database and Sequelize as an ORM. I wrote a seed file that uses a few custom functions to parse the two CSV's provided into objects that map onto Product and Inventory relations. I wrote a RESTful API in Express, for now a series of GET requests to fetch data loaded into the database. Testing for each route is done using Mocha, Chai and Supertest. The front-end is built with Angular for the view and UI-Router for state transition. The choice to use Angular came from my comfort in creating repeated blocks of code with ng-repeat (great for table rows), and I made use of CSS3 flexboxes for responsivity in the layout.
+In the backend I utilized a PostgreSQL database and Sequelize as an ORM. I wrote a seed file that uses a few custom functions to parse the two CSV's provided into objects that map onto Product and Inventory relations. I wrote a RESTful API in Express, for now a series of GET requests to fetch data loaded into the database. Testing for each route is done using Mocha, Chai and Supertest. The front-end is built with Angular for the view and UI-Router for state transition. The choice to use Angular came from my comfort in creating repeated blocks of code with ng-repeat (great for table rows), and I made use of CSS3 flexboxes for responsivity in the layout.
 
 **API Endpoints**
 
@@ -30,7 +30,7 @@
 | GET*  | /api/inventory/style/:style | Get all inventory in same style | Inventory  |
 | GET*  | /api/inventory/:productid/style/:style  | Get all inventory by product_id and style | Inventory  |
 
-*Note: use spaces or percent encoding for multi word string-fields (e.g. 'jet blues' or 'jet%20blues')
+*Note: use spaces or percent encoding for multi-word string fields (e.g. 'jet blues' or 'jet%20blues')
 
 **Improvements**
 - [ ] Make parsing of CSV data more extensible, right now the functions written in db/seed will only deal with the dirtiness (single quotes, unescaped commas, numbers as strings) of the two CSV files used in this project
