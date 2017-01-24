@@ -12,7 +12,9 @@ router.get('/', (req, res, next) => {
 
 // get inventory by product id
 router.get('/:productid', (req, res, next) => {
-  Inventory.findAll({where: {product_id: req.params.productid}})
+  Inventory.findAll({where: {
+    product_id: req.params.productid}
+  })
   .then(inventory => {
     res.send(inventory);
   })
@@ -21,7 +23,9 @@ router.get('/:productid', (req, res, next) => {
 
 // get inventory by waist size
 router.get('/size/:size', (req, res, next) => {
-  Inventory.findAll({where: {waist: req.params.size }})
+  Inventory.findAll({where: {
+    waist: req.params.size }
+  })
   .then(inventory => {
     res.send(inventory);
   })
@@ -68,26 +72,24 @@ router.get('/:productid/waist/:waist/length/:length', (req, res, next) => {
 // get all inventory in same style
 router.get('/style/:style', (req, res, next) => {
    Inventory.findAll({where: {
-    style: req.params.style
-  }
+    style: req.params.style }
   })
   .then(inventory => {
     res.send(inventory);
   })
   .catch(next);
-})
+});
 
 // get inventory by product + style
 router.get('/:productid/style/:style', (req, res, next) => {
    Inventory.findAll({where: {
     product_id: req.params.productid,
-    style: req.params.style
-  }
+    style: req.params.style }
   })
   .then(inventory => {
     res.send(inventory);
   })
   .catch(next);
-})
+});
 
 module.exports = router;

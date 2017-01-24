@@ -1,0 +1,24 @@
+<div>
+
+  <div>
+    <button ng-click="viewProducts()">Product Detail</button>
+  </div>
+
+  <h1>Inventory</h1>
+
+  <div class="header">
+    <h4 ng-repeat="column in columns">{{column}}
+      <i class="fa fa-sort" aria-hidden="true" ng-click="sortByColumn(column)">
+      </i>
+    </h4>
+  </div>
+
+  <div class="row" ng-repeat="item in inventory">
+    <p>{{item.product_id}}</p>
+    <p>{{item.waist}}</p>
+    <p>{{item.length}}</p>
+    <p>{{item.style}}</p>
+    <p>{{item.count}}</p>
+  </div>
+
+</div>

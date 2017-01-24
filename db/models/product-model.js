@@ -3,10 +3,12 @@ var db = require('../index.js');
 
 var Product = db.define('product', {
   product_id: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    allowNull: false
   },
   product_name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false
   },
   product_image: {
     type: Sequelize.STRING
