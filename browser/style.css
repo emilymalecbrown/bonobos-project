@@ -13,7 +13,7 @@ h1 {
 
 /* prevent showing templating */
 [ng\:cloak], [ng-cloak], .ng-cloak {
-  display: none !important;
+  display: none;
 }
 
 /* button */
