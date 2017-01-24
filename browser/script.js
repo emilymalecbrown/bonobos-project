@@ -14,6 +14,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 app.factory('InventoryFactory', function($http) {
   let factory = {};
 
+  // get all inventory
   factory.getInventory = () => {
     return $http.get('/api/inventory', (response) => {
       return response.data;
@@ -37,6 +38,7 @@ app.controller('InventoryController', function($scope, InventoryFactory, $state)
   $scope.columns = ['product_id', 'waist', 'length', 'style', 'count'];
   $scope.inventory = [];
 
+  // get all inventory
   InventoryFactory.getInventory()
   .then((response) => {
     $scope.inventory = sortByKey(response.data, 'product_id');
@@ -44,10 +46,12 @@ app.controller('InventoryController', function($scope, InventoryFactory, $state)
 
   $scope.sortByColumn = (column) => {
     if ($scope.toggled === true) {
-      $scope.inventory = sortByKey($scope.inventory, column);
+      // if have sorted already, reverse and toggle
+      $scope.inventory = sortByKey($scope.inventory, column).reverse();
       $scope.toggled = false;
     } else {
-      $scope.inventory = sortByKey($scope.inventory, column).reverse();
+      // sort by key and toggle
+      $scope.inventory = sortByKey($scope.inventory, column);
       $scope.toggled = true;
     }
   }
@@ -71,6 +75,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 app.factory('ProductFactory', function($http) {
   let factory = {};
 
+  // get all products
   factory.getProducts = () => {
     return $http.get('/api/products', (response) => {
       return response.data;
@@ -83,6 +88,7 @@ app.controller('ProductController', function($scope, $state, ProductFactory) {
 
   $scope.products = [];
 
+  // get all products
   ProductFactory.getProducts()
   .then((response) => {
     $scope.products = response.data;
